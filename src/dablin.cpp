@@ -348,7 +348,13 @@ void DABlinText::PADChangeDynamicLabel(const DL_STATE& dl) {
 		if(!charset_name.empty()) {
 			fprintf(stderr, "DLSegment: %s \"%s\"\n", currentService.c_str(), label.c_str());
 			//write out the DLSegment to a file
-						
+			std::ofstream dlsFile(currentService + ".dls", std::ios::app);
+			if (dlsFile.is_open()) {
+				dlsFile << label << std::endl;
+				dlsFile.close();
+			} else {
+				std::cerr << "Unable to open file for writing DLSegment" << std::endl;
+			}
 		}
 	}
 }
