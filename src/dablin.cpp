@@ -274,6 +274,7 @@ DABlinText::DABlinText(DABlinTextOptions options) {
 	}
 
 	fic_decoder = new FICDecoder(this, options.disable_dyn_fic_msgs);
+	pad_decoder = new PADDecoder(this, true);
 }
 
 DABlinText::~DABlinText() {
@@ -281,6 +282,7 @@ DABlinText::~DABlinText() {
 	delete ensemble_source;
 	delete ensemble_player;
 	delete fic_decoder;
+	delete pad_decoder;
 }
 
 void DABlinText::EnsembleUpdateProgress(const ENSEMBLE_PROGRESS& progress) {
@@ -295,6 +297,7 @@ void DABlinText::FICChangeService(const LISTED_SERVICE& service) {
 //	fprintf(stderr, "### FICChangeService\n");
 
 	std::string label = FICDecoder::ConvertLabelToUTF8(service.label, nullptr);
+	std::string short_label = FICDecoder::DeriveShortLabelUTF8(label, service.label.short_label_mask);
 
 	// if first found service requested, adopt service params (for possible later changes)
 	if(options.initial_first_found_service) {
@@ -312,7 +315,35 @@ void DABlinText::FICChangeService(const LISTED_SERVICE& service) {
 		ensemble_player->SetAudioService(service.audio_service);
 
 	// set XTerm window title to service name
-	fprintf(stderr, "\x1B]0;" "%s - DABlin" "\a", label.c_str());
+	// fprintf(stderr, "\x1B]0;" "%s - DABlin" "\a", label.c_str());
+
+	// set service
+	//int fd = getFd();
+	fprintf(stderr, "{\"service\":{\"label\":\"%s\",\"shortLabel\":\"%s\",\"sid\":\"0x%04X\"}}\n", label.c_str(), short_label.c_str(), service.sid);
+	//close(fd);
+
+}
+
+void DABlinText::PADChangeDynamicLabel(const DL_STATE& dl) {
+	if(dl.charset != -1) {
+		std::string charset_name;
+		std::string label = CharsetTools::ConvertTextToUTF8(&dl.raw[0], dl.raw.size(), dl.charset, false, &charset_name);
+
+		// skip unsupported charsets
+		if(!charset_name.empty()) {
+			dprintf(3, "{\"dl\":\"%s\"}\n", label.c_str());
+		}
+	}
+}
+
+void DABlinText::FICChangeEnsemble(const FIC_ENSEMBLE& ensemble) {
+	std::string label = FICDecoder::ConvertLabelToUTF8(ensemble.label, nullptr);
+	std::string short_label = FICDecoder::DeriveShortLabelUTF8(label, ensemble.label.short_label_mask);
+	dprintf(3, "{\"ensemble\":{\"label\":\"%s\",\"shortLabel\":\"%s\",\"eid\":\"0x%04X\"}}\n", label.c_str(), short_label.c_str(), ensemble.eid);
+}
+
+
+
 }
 
 void DABlinText::FICDiscardedFIB() {
