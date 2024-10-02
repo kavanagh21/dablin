@@ -157,6 +157,8 @@ void SuperframeFilter::CheckForPAD(const uint8_t *data, size_t len) {
 			observer->ProcessPAD(data + pad_start, pad_len - FPAD_LEN, true, data + pad_start + pad_len - FPAD_LEN);
 			present = true;
 		}
+
+		fprintf(stderr, "SuperframeFilter: PAD found (%zu bytes)\n", pad_len);
 	}
 
 	// assume zero bytes F-PAD, if no DSE present
