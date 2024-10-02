@@ -325,7 +325,7 @@ void DABlinText::FICChangeService(const LISTED_SERVICE& service) {
 	//int fd = getFd();
 	//fprintf(stderr, "{\"service\":{\"label\":\"%s\",\"shortLabel\":\"%s\",\"sid\":\"0x%04X\"}}\n", label.c_str(), short_label.c_str(), service.sid);
 	//close(fd);
-	currentService = std::to_string(service.sid);
+	currentService = "0x" + std::to_string(service.sid);
 
 }
 
