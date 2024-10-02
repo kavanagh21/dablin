@@ -325,6 +325,7 @@ void DABlinText::FICChangeService(const LISTED_SERVICE& service) {
 }
 
 void DABlinText::PADChangeDynamicLabel(const DL_STATE& dl) {
+	fprintf(stderr, "PAD UPDATED");
 	if(dl.charset != -1) {
 		std::string charset_name;
 		std::string label = CharsetTools::ConvertTextToUTF8(&dl.raw[0], dl.raw.size(), dl.charset, false, &charset_name);
