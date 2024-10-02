@@ -343,9 +343,6 @@ void DABlinText::FICChangeEnsemble(const FIC_ENSEMBLE& ensemble) {
 }
 
 
-
-}
-
 void DABlinText::FICDiscardedFIB() {
 	fprintf(stderr, "\x1B[33m" "(FIB)" "\x1B[0m" " ");
 }
