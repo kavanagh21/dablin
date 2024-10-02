@@ -20,6 +20,10 @@
 
 static DABlinText *dablin = nullptr;
 
+//Tuned service
+std::string currentService = "0x0000";
+
+
 static void break_handler(int) {
 	fprintf(stderr, "...DABlin exits...\n");
 	if(dablin)
@@ -321,6 +325,7 @@ void DABlinText::FICChangeService(const LISTED_SERVICE& service) {
 	//int fd = getFd();
 	//fprintf(stderr, "{\"service\":{\"label\":\"%s\",\"shortLabel\":\"%s\",\"sid\":\"0x%04X\"}}\n", label.c_str(), short_label.c_str(), service.sid);
 	//close(fd);
+	currentService = std::to_string(service.sid);
 
 }
 
@@ -333,10 +338,7 @@ void DABlinText::PADChangeDynamicLabel(const DL_STATE& dl) {
 		if(!charset_name.empty()) {
 			fprintf(stderr, "DLSegment: \"%s\"\n", label.c_str());
 			//write out the DLSegment to a file
-			
-			int current_sid = ensemble_player->GetCurrentServiceID();
-			fprintf(stderr, "Current Service ID: 0x%04X\n", current_sid);
-
+						
 		}
 	}
 }
