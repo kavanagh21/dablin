@@ -336,7 +336,7 @@ void DABlinText::PADChangeDynamicLabel(const DL_STATE& dl) {
 
 		// skip unsupported charsets
 		if(!charset_name.empty()) {
-			fprintf(stderr, "DLSegment: \"%s\"\n", label.c_str());
+			fprintf(stderr, "DLSegment: %s \"%s\"\n", currentService, label.c_str());
 			//write out the DLSegment to a file
 						
 		}
