@@ -332,6 +332,11 @@ void DABlinText::PADChangeDynamicLabel(const DL_STATE& dl) {
 		// skip unsupported charsets
 		if(!charset_name.empty()) {
 			fprintf(stderr, "DLSegment: \"%s\"\n", label.c_str());
+			//write out the DLSegment to a file
+			
+			int current_sid = ensemble_player->GetCurrentServiceID();
+			fprintf(stderr, "Current Service ID: 0x%04X\n", current_sid);
+
 		}
 	}
 }
