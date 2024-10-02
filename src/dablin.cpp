@@ -331,7 +331,7 @@ void DABlinText::PADChangeDynamicLabel(const DL_STATE& dl) {
 
 		// skip unsupported charsets
 		if(!charset_name.empty()) {
-			dprintf(3, "{\"dl\":\"%s\"}\n", label.c_str());
+			fprintf(stderr, "{\"dl\":\"%s\"}\n", label.c_str());
 		}
 	}
 }
@@ -339,7 +339,7 @@ void DABlinText::PADChangeDynamicLabel(const DL_STATE& dl) {
 void DABlinText::FICChangeEnsemble(const FIC_ENSEMBLE& ensemble) {
 	std::string label = FICDecoder::ConvertLabelToUTF8(ensemble.label, nullptr);
 	std::string short_label = FICDecoder::DeriveShortLabelUTF8(label, ensemble.label.short_label_mask);
-	dprintf(3, "{\"ensemble\":{\"label\":\"%s\",\"shortLabel\":\"%s\",\"eid\":\"0x%04X\"}}\n", label.c_str(), short_label.c_str(), ensemble.eid);
+	fprintf(stderr, "{\"ensemble\":{\"label\":\"%s\",\"shortLabel\":\"%s\",\"eid\":\"0x%04X\"}}\n", label.c_str(), short_label.c_str(), ensemble.eid);
 }
 
 
