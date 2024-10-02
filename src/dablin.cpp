@@ -26,6 +26,7 @@ static DABlinText *dablin = nullptr;
 
 //Tuned service
 std::string currentService = "0x0000";
+std::string currentEnsemble = "0x0000";
 
 std::string intToHexString(int value) {
     std::stringstream stream;
@@ -349,7 +350,7 @@ void DABlinText::PADChangeDynamicLabel(const DL_STATE& dl) {
 		if(!charset_name.empty()) {
 			fprintf(stderr, "DLSegment: %s \"%s\"\n", currentService.c_str(), label.c_str());
 			//write out the DLSegment to a file
-			std::ofstream dlsFile(currentService + ".dls", std::ios::trunc);
+			std::ofstream dlsFile(currentEnsemble + currentService + ".dls", std::ios::trunc);
 			if (dlsFile.is_open()) {
 				dlsFile << label << std::endl;
 				dlsFile.close();
@@ -363,6 +364,7 @@ void DABlinText::PADChangeDynamicLabel(const DL_STATE& dl) {
 void DABlinText::FICChangeEnsemble(const FIC_ENSEMBLE& ensemble) {
 	std::string label = FICDecoder::ConvertLabelToUTF8(ensemble.label, nullptr);
 	std::string short_label = FICDecoder::DeriveShortLabelUTF8(label, ensemble.label.short_label_mask);
+	currentEnsemble = "0x" + intToHexString(ensemble.eid);
 	//fprintf(stderr, "{\"ensemble\":{\"label\":\"%s\",\"shortLabel\":\"%s\",\"eid\":\"0x%04X\"}}\n", label.c_str(), short_label.c_str(), ensemble.eid);
 }
 
