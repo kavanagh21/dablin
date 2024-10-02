@@ -20,6 +20,7 @@
 #include <iostream>
 #include <sstream>
 #include <iomanip>
+#include <fstream>
 
 static DABlinText *dablin = nullptr;
 
