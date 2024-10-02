@@ -325,7 +325,7 @@ void DABlinText::FICChangeService(const LISTED_SERVICE& service) {
 	//int fd = getFd();
 	//fprintf(stderr, "{\"service\":{\"label\":\"%s\",\"shortLabel\":\"%s\",\"sid\":\"0x%04X\"}}\n", label.c_str(), short_label.c_str(), service.sid);
 	//close(fd);
-	currentService = "0x" + std::to_string(service.sid);
+	currentService = std::to_string(service.sid);
 
 }
 
@@ -336,7 +336,7 @@ void DABlinText::PADChangeDynamicLabel(const DL_STATE& dl) {
 
 		// skip unsupported charsets
 		if(!charset_name.empty()) {
-			fprintf(stderr, "DLSegment: %s \"%s\"\n", currentService, label.c_str());
+			fprintf(stderr, "DLSegment: %s \"%s\"\n", currentService.c_str(), label.c_str());
 			//write out the DLSegment to a file
 						
 		}
