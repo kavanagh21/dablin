@@ -336,7 +336,7 @@ void DABlinText::FICChangeService(const LISTED_SERVICE& service) {
 	
 	//Convert the service ID to a hex STRING
 
-	currentService = intToHexString(service.sid);
+	currentService = "0x" + intToHexString(service.sid);
 }
 
 void DABlinText::PADChangeDynamicLabel(const DL_STATE& dl) {
