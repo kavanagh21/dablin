@@ -17,12 +17,20 @@
  */
 
 #include "dablin.h"
+#include <iostream>
+#include <sstream>
+#include <iomanip>
 
 static DABlinText *dablin = nullptr;
 
 //Tuned service
 std::string currentService = "0x0000";
 
+std::string intToHexString(int value) {
+    std::stringstream stream;
+    stream << std::hex << std::uppercase << value; // Convert to hex and uppercase
+    return stream.str();
+}
 
 static void break_handler(int) {
 	fprintf(stderr, "...DABlin exits...\n");
@@ -325,8 +333,10 @@ void DABlinText::FICChangeService(const LISTED_SERVICE& service) {
 	//int fd = getFd();
 	//fprintf(stderr, "{\"service\":{\"label\":\"%s\",\"shortLabel\":\"%s\",\"sid\":\"0x%04X\"}}\n", label.c_str(), short_label.c_str(), service.sid);
 	//close(fd);
-	currentService = std::to_string(service.sid);
+	
+	//Convert the service ID to a hex STRING
 
+	currentService = intToHexString(service.sid);
 }
 
 void DABlinText::PADChangeDynamicLabel(const DL_STATE& dl) {
