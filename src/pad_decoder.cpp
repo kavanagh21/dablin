@@ -200,7 +200,7 @@ void PADDecoder::Process(const uint8_t *xpad_data, size_t xpad_len, bool exact_x
 
 void PADDecoder::MOTFileCompleted(const MOT_FILE& file) {
 	// check file type
-	fprintf("PADDecoder: MOT File Completed");
+	fprintf(stderr, "PADDecoder: MOT File Completed: %d\n", file.content_type);
 	bool show_slide = true;
 	if(file.content_type != MOT_FILE::CONTENT_TYPE_IMAGE)
 		show_slide = false;
