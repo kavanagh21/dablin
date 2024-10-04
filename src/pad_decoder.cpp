@@ -63,6 +63,8 @@ void PADDecoder::Process(const uint8_t *xpad_data, size_t xpad_len, bool exact_x
 	XPAD_CI prev_xpad_ci = last_xpad_ci;
 	last_xpad_ci.Reset();
 
+	fprintf(stderr, "PADDecoder: xpad_len: %5zu, fpad_type: %d, xpad_ind: %d, ci_flag: %d\n", xpad_len, fpad_type, xpad_ind, ci_flag);
+
 	// build CI list
 	if(fpad_type == 0b00) {
 		if(ci_flag) {
@@ -183,7 +185,7 @@ void PADDecoder::Process(const uint8_t *xpad_data, size_t xpad_len, bool exact_x
 
 			break;
 		}
-		fprintf(stderr, "PADDecoder: Data Subfield: type: %2d, len: %2zu\n", it->type, it->len);
+//		fprintf(stderr, "PADDecoder: Data Subfield: type: %2d, len: %2zu\n", it->type, it->len);
 
 		xpad_offset += xpad_ci.len;
 	}
