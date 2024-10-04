@@ -77,8 +77,8 @@ bool MOTObject::ParseCheckHeader(MOT_FILE& target_file) {
 	int content_type = (data[5] & 0x7F) >> 1;
 	int content_sub_type = ((data[5] & 0x01) << 8) | data[6];
 
-//	fprintf(stderr, "body_size: %5zu, header_size: %3zu, content_type: 0x%02X, content_sub_type: 0x%03X\n",
-//			body_size, header_size, content_type, content_sub_type);
+	fprintf(stderr, "body_size: %5zu, header_size: %3zu, content_type: 0x%02X, content_sub_type: 0x%03X\n",
+			body_size, header_size, content_type, content_sub_type);
 
 	if(header_size != header.GetSize())
 		return false;
