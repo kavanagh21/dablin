@@ -172,6 +172,7 @@ void PADDecoder::Process(const uint8_t *xpad_data, size_t xpad_len, bool exact_x
 			// MOT, X-PAD data group (start/continuation)
 			if(mot_app_type != -1 && (xpad_ci.type == mot_app_type || xpad_ci.type == mot_app_type + 1)) {
 				bool start = xpad_ci.type == mot_app_type;
+				fprintf(stderr, "PADDecoder: MOT Data Group: start: %d, len: %2zu\n", start, xpad_ci.len);
 
 				if(start)
 					mot_decoder.SetLen(dgli_len);
