@@ -150,6 +150,8 @@ void PADDecoder::Process(const uint8_t *xpad_data, size_t xpad_len, bool exact_x
 	for(const XPAD_CI& xpad_ci : xpad_cis) {
 		// len only valid for the *immediate* next data group after the DGLI!
 		size_t dgli_len = dgli_decoder.GetDGLILen();
+		fprintf(stderr, "PADDecoder: Data Group Length Indicator: %5zu \n", dgli_len);
+		fprintf(stderr, "PADDecoder: Data Group Type Indicator: %d \n", xpad_ci.type);
 
 		// handle Data Subfield
 		switch(xpad_ci.type) {
