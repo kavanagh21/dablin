@@ -63,7 +63,7 @@ void PADDecoder::Process(const uint8_t *xpad_data, size_t xpad_len, bool exact_x
 	XPAD_CI prev_xpad_ci = last_xpad_ci;
 	last_xpad_ci.Reset();
 
-	fprintf(stderr, "PADDecoder: xpad_len: %5zu, fpad_type: %d, xpad_ind: %d, ci_flag: %d\n", xpad_len, fpad_type, xpad_ind, ci_flag);
+	//fprintf(stderr, "PADDecoder: xpad_len: %5zu, fpad_type: %d, xpad_ind: %d, ci_flag: %d\n", xpad_len, fpad_type, xpad_ind, ci_flag);
 
 	// build CI list
 	if(fpad_type == 0b00) {
@@ -150,8 +150,8 @@ void PADDecoder::Process(const uint8_t *xpad_data, size_t xpad_len, bool exact_x
 	for(const XPAD_CI& xpad_ci : xpad_cis) {
 		// len only valid for the *immediate* next data group after the DGLI!
 		size_t dgli_len = dgli_decoder.GetDGLILen();
-		fprintf(stderr, "PADDecoder: Data Group Length Indicator: %5zu \n", dgli_len);
-		fprintf(stderr, "PADDecoder: Data Group Type Indicator: %d \n", xpad_ci.type);
+		//fprintf(stderr, "PADDecoder: Data Group Length Indicator: %5zu \n", dgli_len);
+		//fprintf(stderr, "PADDecoder: Data Group Type Indicator: %d \n", xpad_ci.type);
 
 		// handle Data Subfield
 		switch(xpad_ci.type) {
@@ -174,7 +174,7 @@ void PADDecoder::Process(const uint8_t *xpad_data, size_t xpad_len, bool exact_x
 			// MOT, X-PAD data group (start/continuation)
 			if(mot_app_type != -1 && (xpad_ci.type == mot_app_type || xpad_ci.type == mot_app_type + 1)) {
 				bool start = xpad_ci.type == mot_app_type;
-				fprintf(stderr, "PADDecoder: MOT Data Group: start: %d, len: %2zu\n", start, xpad_ci.len);
+				//fprintf(stderr, "PADDecoder: MOT Data Group: start: %d, len: %2zu\n", start, xpad_ci.len);
 
 				if(start)
 					mot_decoder.SetLen(dgli_len);
@@ -200,7 +200,7 @@ void PADDecoder::Process(const uint8_t *xpad_data, size_t xpad_len, bool exact_x
 
 void PADDecoder::MOTFileCompleted(const MOT_FILE& file) {
 	// check file type
-	fprintf(stderr, "PADDecoder: MOT File Completed: %d\n", file.content_type);
+	//fprintf(stderr, "PADDecoder: MOT File Completed: %d\n", file.content_type);
 	bool show_slide = true;
 	if(file.content_type != MOT_FILE::CONTENT_TYPE_IMAGE)
 		show_slide = false;
